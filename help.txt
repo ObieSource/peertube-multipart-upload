@@ -6,7 +6,18 @@ usage:
 
 PTHOST=hostname \
   PTUSER=username \
-  PTPASSWD=password \
+  PTCHAN=0 \ #channel id via ./peertube-multipart-upload list
+  PTFILE="path/to/file" \
+  PTTYPE="mime/type" \
+  PTTITLE="video title" \
+  PTDESC="path/to/description.file" \
+  PTSUPP="path/to/support.file" \
+  PTCAT="category" \
+  PTTAGS="video,tags,here,comma,separated" \
+  PTLANG="en" \ # etc.
+  PTCOMMENTS=true/false \ # comments enabled
+  PTDOWNLOADS=true \ # downloads enabled
+  PTNSFW=false \ 
   peertube-multipart-upload
 
 Note that some environment variables may be better suited to be set by .profile, .bash_env, or a similar file, for ease of use.

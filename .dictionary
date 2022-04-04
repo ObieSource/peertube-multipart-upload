@@ -11,3 +11,15 @@ ObieSource
 Peertube
 TLS
 peertube-multipart-upload
+PTCAT
+PTCHAN=0
+PTCOMMENTS=true
+PTDESC
+PTDOWNLOADS=true
+PTFILE
+PTLANG
+PTNSFW=false
+PTSUPP
+PTTAGS
+PTTITLE
+PTTYPE
