@@ -46,11 +46,11 @@ func ReadEnvironmentVars(password string) (input MultipartUploadHandlerHandlerIn
 		"PTTITLE": &input.DisplayName,
 	}
 	var StringEnvVars map[string](*string) = map[string](*string){
-		"PTTAGS":     tagsraw,
-		"PTDESCFILE": descfile,
-		"PTLANG":     &input.Language,
-		"PTSUPP":     suppfile,
-		"PTTYPE":     &input.ContentType,
+		"PTTAGS": tagsraw,
+		"PTDESC": descfile,
+		"PTLANG": &input.Language,
+		"PTSUPP": suppfile,
+		"PTTYPE": &input.ContentType,
 	}
 	for key, val := range StringReqEnvVars {
 		if *val, ok = os.LookupEnv(key); !ok {
