@@ -20,7 +20,7 @@ type MultipartUploadHandlerHandlerInput struct {
 	File            *VideoFileReader
 	FileName        string
 	DisplayName     string
-	Privacy         int8
+	Privacy         int
 	Category        int
 	CommentsEnabled bool
 	DescriptionText string
@@ -91,9 +91,28 @@ func MultipartUploadHandler(input MultipartUploadHandlerHandlerInput) (err error
 	client := &http.Client{}
 	initializeUrl := fmt.Sprintf("%s/api/v1/videos/upload-resumable", input.Hostname)
 	initializePayload := map[string]interface{}{
-		"channelId": input.ChannelID,
-		"filename":  input.FileName,
-		"name":      input.DisplayName,
+		"channelId":       input.ChannelID,
+		"filename":        input.FileName,
+		"name":            input.DisplayName,
+		"category":        input.Category,
+		"commentsEnabled": input.CommentsEnabled,
+		"downloadEnabled": input.DownloadEnabled,
+		"language":        input.Language,
+		"licence":         input.Licence,
+		"nsfw":            input.NSFW,
+		"privacy":         input.Privacy,
+		"tags":            input.Tags,
+		"waitTranscoding": true,
+		// "originallyPublishedAt"
+		// "previewFile"
+		// "scheduleUpdate"
+		// "thumbnailfile"
+	}
+	if len(input.DescriptionText) != 0 {
+		initializePayload["description"] = input.DescriptionText
+	}
+	if len(input.SupportText) != 0 {
+		initializePayload["support"] = input.SupportText
 	}
 	initializePayloadBytes, err := json.Marshal(initializePayload)
 	if err != nil {

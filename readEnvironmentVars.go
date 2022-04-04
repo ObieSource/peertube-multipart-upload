@@ -106,6 +106,8 @@ func ReadEnvironmentVars(password string) (input MultipartUploadHandlerHandlerIn
 
 	IntReqEnvVars := map[string]*int{
 		"PTCHAN": &input.ChannelID,
+		"PTPRIV": &input.Privacy,
+		"PTLIC":  &input.Licence,
 	}
 	IntEnvVars := map[string]*int{
 		"PTCAT": &input.Category,
@@ -126,9 +128,17 @@ func ReadEnvironmentVars(password string) (input MultipartUploadHandlerHandlerIn
 		if err != nil && env != "" {
 			failtext = append(failtext, fmt.Sprintf("ERROR: Environment variable %s must be an int (recieved %s)\n", key, env))
 			fail = true
-		} else {
+		} else if env == "" {
 			*val = 0
 		}
+	}
+
+	// default category is 10 (entertainment)
+	if input.Category == 0 {
+		input.Category = 10
+	}
+	if input.Licence == 0 {
+		input.Licence = 1
 	}
 
 	BoolEnvVars := map[string]*bool{
