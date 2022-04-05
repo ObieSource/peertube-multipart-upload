@@ -39,11 +39,11 @@ func TestReadEnvironmentVars(t *testing.T) {
 
 	// test with no environment variables
 
-	input, err, failtext = ReadEnvironmentVars("pass")
+	input, err, failtext = ReadEnvironmentVars()
 	if !errors.Is(err, ReadEnvVarsFailed) {
 		t.Fatalf("ReadEnvironmentVars on empty environment set should have returned ReadEnvVarsFailed. Returned %+v\n", err)
 	}
-	failtextLength := 8
+	failtextLength := 9
 	if len(failtext) != failtextLength {
 		t.Fatalf("failtext length was not correct size for empty environment. Wanted %d got %d.%+v\n", failtextLength, len(failtext), failtext)
 	}
@@ -53,7 +53,7 @@ func TestReadEnvironmentVars(t *testing.T) {
 		t.Fatalf("os.Setenv returned error \"%+v\"\n", err)
 	}
 
-	input, err, failtext = ReadEnvironmentVars("pass")
+	input, err, failtext = ReadEnvironmentVars()
 	if !errors.Is(err, ReadEnvVarsFailed) {
 		t.Fatalf("ReadEnvironmentVars on empty environment set should have returned ReadEnvVarsFailed. Returned %+v\n", err)
 	}
@@ -77,6 +77,7 @@ func TestReadEnvironmentVars(t *testing.T) {
 		"PTNSFW":      "true",
 		"PTPRIV":      "1",
 		"PTLIC":       "1",
+		"PTTYPE":      "application/text",
 	}
 	for key, val := range stuff {
 		if err = os.Setenv(key, val); err != nil {
@@ -84,7 +85,7 @@ func TestReadEnvironmentVars(t *testing.T) {
 		}
 	}
 
-	input, err, failtext = ReadEnvironmentVars("pass")
+	input, err, failtext = ReadEnvironmentVars()
 	if err != nil || len(failtext) != 0 {
 		t.Fatalf("On ReadEnvironmentVars with all env variables, should have returend no error but returned %+v\n (Failtest %+v)", err, (failtext))
 	}
@@ -96,7 +97,7 @@ func TestReadEnvironmentVars(t *testing.T) {
 	input.File = nil
 	for _, v := range trueStrs {
 		stuff["PTNSFW"] = v
-		input2, err, failtext := ReadEnvironmentVars("pass")
+		input2, err, failtext := ReadEnvironmentVars()
 		input2.File = nil
 		if err != nil || len(failtext) != 0 || !reflect.DeepEqual(input2, input) {
 			t.Fatalf("For using value %s for true, did not work or result in the same input. Error \"%+v\" len(failtext) == %d\n", v, err, len(failtext))
@@ -105,7 +106,7 @@ func TestReadEnvironmentVars(t *testing.T) {
 
 	for _, v := range falseStrs {
 		stuff["PTCOMMENTS"] = v
-		input2, err, failtext := ReadEnvironmentVars("pass")
+		input2, err, failtext := ReadEnvironmentVars()
 		input2.File = nil
 		if err != nil || len(failtext) != 0 || !reflect.DeepEqual(input2, input) {
 			t.Fatalf("For using value %s for false, did not work or result in the same input. Error \"%+v\" len(failtext) == %d\n", v, err, len(failtext))
