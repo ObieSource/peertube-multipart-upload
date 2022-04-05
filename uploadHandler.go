@@ -187,10 +187,7 @@ func MultipartUploadHandler(input MultipartUploadHandlerHandlerInput) (err error
 		200 (good, last chunk recieved, done.)
 	*/
 	// initialize bar
-	var numberOfChunks int = int(input.File.TotalBytes / VideoChunkSize)
-	if numberOfChunks == 0 {
-		numberOfChunks = 1
-	}
+	var numberOfChunks int = int(input.File.TotalBytes/VideoChunkSize) + 1
 	bar := pb.Default.Start(numberOfChunks)
 	if err = bar.Err(); err != nil {
 		return
