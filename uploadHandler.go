@@ -53,13 +53,6 @@ func MultipartUploadHandler(input MultipartUploadHandlerHandlerInput) (err error
 	}
 	log.Println(oauthToken)
 
-	// initialize bar
-	bar := pb.Default.Start64(int64(input.File.TotalBytes))
-	bar.Set(pb.Bytes, true)
-	if err = bar.Err(); err != nil {
-		return
-	}
-	bar.Start()
 	/*
 		Initialize the multipart upload via
 		https://docs.joinpeertube.org/api-rest-reference.html#operation/uploadResumableInit
@@ -193,6 +186,16 @@ func MultipartUploadHandler(input MultipartUploadHandlerHandlerInput) (err error
 		308 (good, not complete)
 		200 (good, last chunk recieved, done.)
 	*/
+	// initialize bar
+	var numberOfChunks int = int(input.File.TotalBytes / VideoChunkSize)
+	if numberOfChunks == 0 {
+		numberOfChunks = 1
+	}
+	bar := pb.Default.Start(numberOfChunks)
+	if err = bar.Err(); err != nil {
+		return
+	}
+	// bar.Start()
 	for {
 		chunk, err := input.File.GetNextChunk()
 		if err != nil {
@@ -235,7 +238,7 @@ func MultipartUploadHandler(input MultipartUploadHandlerHandlerInput) (err error
 				time.Sleep(15 * time.Second)
 			}
 		}
-		bar.Add(chunk.Length)
+		bar.Increment()
 	}
 	return
 }
