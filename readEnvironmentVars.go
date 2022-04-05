@@ -31,7 +31,7 @@ var (
 	VideoChunkSize VideoFileByteCounter = 1024 * 1024 * 1
 )
 
-func ReadEnvironmentVars(password string) (input MultipartUploadHandlerHandlerInput, erro error, failtext []string) {
+func ReadEnvironmentVars() (input MultipartUploadHandlerHandlerInput, erro error, failtext []string) {
 	var ok bool
 	var fail bool
 	var err error
@@ -176,7 +176,14 @@ func ReadEnvironmentVars(password string) (input MultipartUploadHandlerHandlerIn
 	/*
 		Get password
 	*/
-	input.Password = password
+	input.Password = ""
+	/*
+		Set password after this function is
+		run so that errors relating to
+		unset environment variables are
+		shown to the user before entering
+		the password.
+	*/
 	return
 }
 

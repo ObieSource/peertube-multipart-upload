@@ -27,14 +27,14 @@ func main() {
 	/*
 		Run the multipart upload
 	*/
-	password, err := PasswordSecret()
-	if err != nil {
-		panic(err)
-	}
-	input, err, failtext := ReadEnvironmentVars(password)
+	input, err, failtext := ReadEnvironmentVars()
 	if err != nil {
 		log.Println(strings.Join(failtext, "\n"))
 		os.Exit(1)
+	}
+	input.Password, err = PasswordSecret()
+	if err != nil {
+		panic(err)
 	}
 	if err = MultipartUploadHandler(input); err != nil {
 		log.Printf("multipart error %+v\n", err)
