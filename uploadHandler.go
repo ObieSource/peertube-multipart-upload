@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"strings"
 	"time"
+
+	pb "github.com/cheggaaa/pb/v3"
 )
 
 type MultipartUploadHandlerHandlerInput struct {
@@ -50,6 +52,14 @@ func MultipartUploadHandler(input MultipartUploadHandlerHandlerInput) (err error
 		return
 	}
 	log.Println(oauthToken)
+
+	// initialize bar
+	bar := pb.Default.Start64(int64(input.File.TotalBytes))
+	bar.Set(pb.Bytes, true)
+	if err = bar.Err(); err != nil {
+		return
+	}
+	bar.Start()
 	/*
 		Initialize the multipart upload via
 		https://docs.joinpeertube.org/api-rest-reference.html#operation/uploadResumableInit
@@ -134,7 +144,7 @@ func MultipartUploadHandler(input MultipartUploadHandlerHandlerInput) (err error
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(resp.Status)
+	// fmt.Println(resp.Status)
 	if resp.StatusCode != 201 {
 		// BAD,
 		log.Printf("initialize api call returned status code %d.", resp.StatusCode)
@@ -148,7 +158,7 @@ func MultipartUploadHandler(input MultipartUploadHandlerHandlerInput) (err error
 		panic("returned non 201 status code")
 	}
 	// response will be in headers
-	fmt.Printf("%+v\n", resp.Header)
+	// fmt.Printf("%+v\n", resp.Header)
 
 	// Get upload location
 	defer resp.Body.Close()
@@ -160,7 +170,7 @@ func MultipartUploadHandler(input MultipartUploadHandlerHandlerInput) (err error
 		log.Println("Warning: recieved an upload location that doesn't begin with \"//\", i don't know what to do with this.")
 		panic(nil)
 	}
-	fmt.Println("upload location", uploadLocation)
+	// fmt.Println("upload location", uploadLocation)
 
 	/*
 		For each part of the file, upload that part
@@ -191,7 +201,7 @@ func MultipartUploadHandler(input MultipartUploadHandlerHandlerInput) (err error
 		if chunk.Finished {
 			break
 		}
-		fmt.Println(chunk.MinByte, chunk.MaxByte, chunk.Length, chunk.RangeHeader)
+		// fmt.Println(chunk.MinByte, chunk.MaxByte, chunk.Length, chunk.RangeHeader)
 
 		for {
 			up, err := http.NewRequest("PUT", uploadLocation, bytes.NewReader(chunk.Bytes))
@@ -207,13 +217,15 @@ func MultipartUploadHandler(input MultipartUploadHandlerHandlerInput) (err error
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println(resp.Status)
+			// fmt.Println(resp.Status)
 			defer resp.Body.Close()
-			body, err2 := io.ReadAll(resp.Body)
-			if err2 != nil {
-				panic(err2)
-			}
-			fmt.Println(string(body))
+			/*
+				body, err2 := io.ReadAll(resp.Body)
+				if err2 != nil {
+					panic(err2)
+				}
+			*/
+			// fmt.Println(string(body))
 			if resp.StatusCode == 308 || resp.StatusCode == 200 {
 				// 301 = part of upload successful but not done
 				// 200 = part of upload successful and video = done
@@ -223,6 +235,7 @@ func MultipartUploadHandler(input MultipartUploadHandlerHandlerInput) (err error
 				time.Sleep(15 * time.Second)
 			}
 		}
+		bar.Add(chunk.Length)
 	}
 	return
 }

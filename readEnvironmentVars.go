@@ -28,7 +28,7 @@ var (
 		"n",
 		"0",
 	}
-	VideoChunkSize VideoFileByteCounter = 1024 * 1024 * 2
+	VideoChunkSize VideoFileByteCounter = 1024 * 1024 * 1
 )
 
 func ReadEnvironmentVars(password string) (input MultipartUploadHandlerHandlerInput, erro error, failtext []string) {
