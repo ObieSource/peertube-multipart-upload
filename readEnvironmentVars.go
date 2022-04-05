@@ -44,13 +44,13 @@ func ReadEnvironmentVars() (input MultipartUploadHandlerHandlerInput, erro error
 		"PTUSER":  &input.Username,
 		"PTFILE":  &input.FileName,
 		"PTTITLE": &input.DisplayName,
+		"PTTYPE":  &input.ContentType,
 	}
 	var StringEnvVars map[string](*string) = map[string](*string){
 		"PTTAGS": tagsraw,
 		"PTDESC": descfile,
 		"PTLANG": &input.Language,
 		"PTSUPP": suppfile,
-		"PTTYPE": &input.ContentType,
 	}
 	for key, val := range StringReqEnvVars {
 		if *val, ok = os.LookupEnv(key); !ok {
@@ -99,10 +99,6 @@ func ReadEnvironmentVars() (input MultipartUploadHandlerHandlerInput, erro error
 	// input.FileName should only be actual file name
 	spl := strings.Split(input.FileName, "/")
 	input.FileName = spl[len(spl)-1]
-
-	if input.ContentType == "" {
-		input.ContentType = "video/mp4"
-	}
 
 	IntReqEnvVars := map[string]*int{
 		"PTCHAN": &input.ChannelID,
