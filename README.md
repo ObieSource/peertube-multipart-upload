@@ -8,12 +8,20 @@ For these and other reasons, uploading a file in multiple parts is preferable. F
 This script aims to simplify the process of multipart-uploads to be as easy as uploading the file via the browser application or via a single-part upload. It uses environmental variables to declare the required parameters, such as the username and password, and information about the video.
 
 # Installation
-peertube-multipart-upload is currently only available for installation by compiling from source. Fortunately, the go compiler makes this very easy.
+peertube-multipart-upload can be installed via the go compiler
+```bash
+go install github.com/ObieSource/peertube-multipart-upload@07a6e2db728f90a6911d1e3d3f0b7c92e38b9835
+```
 
+It can also be compiled from source in the following way:
 - Install the go compiler from [here](https://go.dev/dl/) or by another method.
 - Clone the peertube-multipart-upload repository
-`git clone https://github.com/ObieSource/peertube-multipart-upload.git`
-- Change working directory to the repository via `cd peertube-multipart-upload/` and install the binary application by typing `go install`. This will install the necessary go modules.
+- Change working directory to the repository via and install the binary application via `go install`. This will install the necessary go modules.
+```bash
+git clone https://github.com/ObieSource/peertube-multipart-upload.git
+cd peertube-multipart-upload/
+go install
+```
 
 # Usage
 Refer to [help.txt](https://raw.githubusercontent.com/ObieSource/peertube-multipart-upload/master/help.txt) or type `peertube-multipart-upload help`.
@@ -28,4 +36,4 @@ Refer to the [Peertube API reference](https://docs.joinpeertube.org/api-rest-ref
 Note that a `/api/v1/videos/upload-resumable` call will automatically finish the upload when the final part is called.
 
 # Chat
-Please feel free to discuss this project on the irc.ergo.chat (note: TLS :6697 only) network at #peertube-multipart-upload [(browser client)](https://ergo.chat/kiwi/#peertube-multipart-upload).
+Please feel free to discuss this project on irc.liberta.casa#fiskfan1999 (TLS :6697) [(browser client)](https://liberta.casa/kiwi/#fiskfan1999).
