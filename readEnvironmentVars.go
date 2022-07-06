@@ -45,11 +45,11 @@ func ReadEnvironmentVars() (input MultipartUploadHandlerHandlerInput, erro error
 		"PTFILE":  &input.FileName,
 		"PTTITLE": &input.DisplayName,
 		"PTTYPE":  &input.ContentType,
+		"PTLANG":  &input.Language,
 	}
 	var StringEnvVars map[string](*string) = map[string](*string){
 		"PTTAGS": tagsraw,
 		"PTDESC": descfile,
-		"PTLANG": &input.Language,
 		"PTSUPP": suppfile,
 	}
 	for key, val := range StringReqEnvVars {
