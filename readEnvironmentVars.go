@@ -169,6 +169,19 @@ func ReadEnvironmentVars() (input MultipartUploadHandlerHandlerInput, erro error
 		return
 	}
 
+	err, verified, verifyFailText := VerifyEnvironmentValues(input)
+	if err != nil {
+		erro = err
+		return
+	}
+
+	if verified {
+		for _, line := range verifyFailText {
+			failtext = append(failtext, line)
+		}
+		fail = true
+	}
+
 	/*
 		Get password
 	*/
