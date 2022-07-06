@@ -11,7 +11,7 @@ ObieSource
 Peertube
 TLS
 peertube-multipart-upload
-PTCAT
+PTCAT=1
 PTCHAN=0
 PTCOMMENTS=true
 PTDESC
