@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -29,7 +30,7 @@ func main() {
 	*/
 	input, err, failtext := ReadEnvironmentVars()
 	if err != nil {
-		log.Println(strings.Join(failtext, "\n"))
+		fmt.Println(strings.Join(failtext, "\n"))
 		os.Exit(1)
 	}
 	input.Password, err = PasswordSecret()
