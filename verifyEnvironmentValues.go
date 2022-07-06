@@ -79,7 +79,7 @@ func VerifyEnvironmentValues(input MultipartUploadHandlerHandlerInput) (err erro
 	}
 
 	if !languageExists {
-		failtext = append(failtext, fmt.Sprintf("Specified languages \"%s\" is not valid. See %s/api/v1/videos/categories", input.Language, host))
+		failtext = append(failtext, fmt.Sprintf("Specified languages \"%s\" is not valid. See %s/api/v1/videos/languages", input.Language, host))
 		correct = false
 	}
 
@@ -143,7 +143,7 @@ func VerifyEnvironmentValues(input MultipartUploadHandlerHandlerInput) (err erro
 	}
 
 	if !privacyExists {
-		failtext = append(failtext, fmt.Sprintf("Specified privacy \"%d\" is not valid. See %s/api/v1/videos/privacies", input.Licence, host))
+		failtext = append(failtext, fmt.Sprintf("Specified privacy \"%d\" is not valid. See %s/api/v1/videos/privacies", input.Privacy, host))
 		correct = false
 	}
 

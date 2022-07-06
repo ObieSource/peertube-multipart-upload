@@ -175,11 +175,11 @@ func ReadEnvironmentVars() (input MultipartUploadHandlerHandlerInput, erro error
 		return
 	}
 
-	if verified {
+	if len(verifyFailText) != 0 || !verified {
 		for _, line := range verifyFailText {
 			failtext = append(failtext, line)
 		}
-		fail = true
+		erro = ReadEnvVarsFailed
 	}
 
 	/*
