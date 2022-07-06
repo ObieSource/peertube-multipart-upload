@@ -62,7 +62,7 @@ func TestReadEnvironmentVars(t *testing.T) {
 	}
 
 	stuff := map[string]string{
-		"PTHOST":      "host",
+		"PTHOST":      "https://peertube.cpy.re",
 		"PTUSER":      "user",
 		"PTFILE":      descfile.Name(), // hacky solution to get working file pointer for this field
 		"PTTITLE":     "title",
