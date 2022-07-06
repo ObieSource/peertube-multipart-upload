@@ -43,7 +43,7 @@ func TestReadEnvironmentVars(t *testing.T) {
 	if !errors.Is(err, ReadEnvVarsFailed) {
 		t.Fatalf("ReadEnvironmentVars on empty environment set should have returned ReadEnvVarsFailed. Returned %+v\n", err)
 	}
-	failtextLength := 9
+	failtextLength := 10
 	if len(failtext) != failtextLength {
 		t.Fatalf("failtext length was not correct size for empty environment. Wanted %d got %d.%+v\n", failtextLength, len(failtext), failtext)
 	}
