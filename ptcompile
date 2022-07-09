@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Transpile the wvlist binary
+# for common operating systems.
+
+rm -rf ptbuilds
+
+if [[ "$1" == "clean" ]]
+then
+    exit 0
+fi
+
+mkdir ptbuilds
+
+
+set -x
+
+GOOS=darwin GOARCH=amd64 go build -ldflags="-X main.Version=$GIT_TAG" -o ptbuilds/peertube-upload.darwin.x86-64 &
+GOOS=darwin GOARCH=arm64 go build -ldflags="-X main.Version=$GIT_TAG" -o ptbuilds/peertube-upload.darwin.arm64 &
+
+GOOS=linux GOARCH=amd64 go build -ldflags="-X main.Version=$GIT_TAG" -o ptbuilds/peertube-upload.linux.x86-64 &
+GOOS=linux GOARCH=arm go build -ldflags="-X main.Version=$GIT_TAG" -o ptbuilds/peertube-upload.linux.arm32 &
+GOOS=linux GOARCH=arm64 go build -ldflags="-X main.Version=$GIT_TAG" -o ptbuilds/peertube-upload.linux.arm64 &
+
+GOOS=windows GOARCH=amd64 go build -ldflags="-X main.Version=$GIT_TAG" -o ptbuilds/peertube-upload.windows.x86-64.exe &
+GOOS=windows GOARCH=386 go build -ldflags="-X main.Version=$GIT_TAG" -o ptbuilds/peertube-upload.windows.386.exe &
+
+wait
