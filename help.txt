@@ -21,6 +21,6 @@ PTHOST=hostname \
   PTCOMMENTS=true/false \ # comments enabled
   PTDOWNLOADS=true \ # downloads enabled
   PTNSFW=false \ 
-  peertube-multipart-upload
+  {{ .Name }}
 
 * If PTPASS is not specified, will ask for password over STDIN
