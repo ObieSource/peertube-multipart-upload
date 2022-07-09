@@ -8,15 +8,16 @@ For these and other reasons, uploading a file in multiple parts is preferable. F
 This script aims to simplify the process of multipart-uploads to be as easy as uploading the file via the browser application or via a single-part upload. It uses environmental variables to declare the required parameters, such as the username and password, and information about the video.
 
 # Installation
-peertube-multipart-upload can be installed via the go compiler
+- `peertube-multipart-upload` is available as a pre-compiled binary for several popular operating systems for the [latest stable release.](https://github.com/ObieSource/peertube-multipart-upload/releases/latest)
+- peertube-multipart-upload can be installed via the go compiler
 ```bash
-go install github.com/ObieSource/peertube-multipart-upload@07a6e2db728f90a6911d1e3d3f0b7c92e38b9835
+go install github.com/ObieSource/peertube-multipart-upload@v0.0.2
 ```
 
-It can also be compiled from source in the following way:
-- Install the go compiler from [here](https://go.dev/dl/) or by another method.
-- Clone the peertube-multipart-upload repository
-- Change working directory to the repository via and install the binary application via `go install`. This will install the necessary go modules.
+- It can also be compiled from source in the following way:
+  - Install the go compiler from [here](https://go.dev/dl/) or by another method.
+  - Clone the peertube-multipart-upload repository
+  - Change working directory to the repository via and install the binary application via `go install`. This will install the necessary go modules.
 ```bash
 git clone https://github.com/ObieSource/peertube-multipart-upload.git
 cd peertube-multipart-upload/
