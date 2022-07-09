@@ -17,7 +17,7 @@ go install github.com/ObieSource/peertube-multipart-upload@v0.0.2
 - It can also be compiled from source in the following way:
   - Install the go compiler from [here](https://go.dev/dl/) or by another method.
   - Clone the peertube-multipart-upload repository
-  - Change working directory to the repository via and install the binary application via `go install`. This will install the necessary go modules.
+  - Change working directory to the repository via `cd` and install the binary application via `go install`. This will install the necessary go modules.
 ```bash
 git clone https://github.com/ObieSource/peertube-multipart-upload.git
 cd peertube-multipart-upload/
