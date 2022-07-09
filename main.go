@@ -16,6 +16,8 @@ func main() {
 		//if strings.ToLower(os.Args[1]) == "list" {
 		switch strings.ToLower(os.Args[1]) {
 		case "list":
+			fallthrough
+		case "channels":
 			ListUserChansHandler()
 		case "help":
 			FullHelpHandler()
