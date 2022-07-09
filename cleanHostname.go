@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -17,6 +18,10 @@ func CleanHostname(raw string) string {
 		Note that this function does not do any
 		validation of the url at all.
 	*/
-	out := strings.TrimRight(raw, "/")
+	out := strings.ToLower(strings.TrimRight(raw, "/"))
+	if !strings.HasPrefix(out, "https://") && !strings.HasPrefix(out, "http://") && out != "" {
+		out = fmt.Sprintf("https://%s", out)
+
+	}
 	return out
 }

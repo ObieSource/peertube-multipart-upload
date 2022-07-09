@@ -9,6 +9,10 @@ var (
 		"":                     "",
 		"https://example.net/": "https://example.net",
 		"https://example.net":  "https://example.net",
+		"http://example.net/":  "http://example.net",
+		"http://example.net":   "http://example.net",
+		"example.net":          "https://example.net",
+		"example.net/":         "https://example.net",
 	}
 )
 
