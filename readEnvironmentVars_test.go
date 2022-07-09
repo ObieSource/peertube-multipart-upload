@@ -5,6 +5,8 @@ import (
 	"os"
 	"reflect"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func TestReadEnvironmentVars(t *testing.T) {
@@ -64,6 +66,7 @@ func TestReadEnvironmentVars(t *testing.T) {
 	stuff := map[string]string{
 		"PTHOST":      "https://peertube.cpy.re",
 		"PTUSER":      "user",
+		"PTPASS":      "passwordhere",
 		"PTFILE":      descfile.Name(), // hacky solution to get working file pointer for this field
 		"PTTITLE":     "title",
 		"PTCAT":       "1",
@@ -79,6 +82,7 @@ func TestReadEnvironmentVars(t *testing.T) {
 		"PTLIC":       "1",
 		"PTTYPE":      "application/text",
 	}
+
 	for key, val := range stuff {
 		if err = os.Setenv(key, val); err != nil {
 			t.Fatalf("os.Setenv error: \"%+v\"\n", err)
@@ -88,6 +92,38 @@ func TestReadEnvironmentVars(t *testing.T) {
 	input, err, failtext = ReadEnvironmentVars()
 	if err != nil || len(failtext) != 0 {
 		t.Fatalf("On ReadEnvironmentVars with all env variables, should have returend no error but returned %+v\n (Failtest %+v)", err, (failtext))
+	}
+
+	inputResult := MultipartUploadHandlerHandlerInput{
+		Hostname:        "https://peertube.cpy.re",
+		Username:        "user",
+		Password:        "passwordhere",
+		ContentType:     "application/text",
+		ChannelID:       2,
+		File:            nil,
+		FileName:        input.FileName,
+		DisplayName:     "title",
+		Privacy:         1,
+		Category:        1,
+		CommentsEnabled: false,
+		DescriptionText: input.DescriptionText,
+		DownloadEnabled: false,
+		Language:        "en",
+		Licence:         1,
+		NSFW:            true,
+		SupportText:     input.SupportText,
+		Tags: []string{
+			"abcde",
+			"fghij",
+			"klmno",
+		},
+	}
+
+	input.File = nil // cmp.Equal doesn't compare file values
+
+	if !cmp.Equal(input, inputResult) {
+		t.Log(cmp.Diff(input, inputResult))
+		t.Error("ReadEnvironmentVars did not return correct variables")
 	}
 
 	/*

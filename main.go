@@ -33,7 +33,13 @@ func main() {
 		fmt.Println(strings.Join(failtext, "\n"))
 		os.Exit(1)
 	}
-	input.Password, err = PasswordSecret()
+	if len(input.Password) == 0 {
+		// don't do password TUI if
+		// already specified with environment
+		// variable
+		input.Password, err = PasswordSecret()
+	}
+
 	if err != nil {
 		panic(err)
 	}

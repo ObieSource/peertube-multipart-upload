@@ -51,6 +51,7 @@ func ReadEnvironmentVars() (input MultipartUploadHandlerHandlerInput, erro error
 		"PTTAGS": tagsraw,
 		"PTDESC": descfile,
 		"PTSUPP": suppfile,
+		"PTPASS": &input.Password,
 	}
 	for key, val := range StringReqEnvVars {
 		if *val, ok = os.LookupEnv(key); !ok {
@@ -183,9 +184,8 @@ func ReadEnvironmentVars() (input MultipartUploadHandlerHandlerInput, erro error
 	}
 
 	/*
-		Get password
+		Note: password is set earlier in this function.
 	*/
-	input.Password = ""
 	/*
 		Set password after this function is
 		run so that errors relating to

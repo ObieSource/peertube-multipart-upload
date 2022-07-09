@@ -6,6 +6,7 @@ usage:
 
 PTHOST=hostname \
   PTUSER=username \
+  PTPASS=passwd \ # Note: not required*
   PTCHAN=0 \ #channel id via ./peertube-multipart-upload list
   PTFILE="path/to/file" \
   PTTYPE="mime/type" \
@@ -22,4 +23,4 @@ PTHOST=hostname \
   PTNSFW=false \ 
   peertube-multipart-upload
 
-Note that some environment variables may be better suited to be set by .profile, .bash_env, or a similar file, for ease of use.
+* If PTPASS is not specified, will ask for password over STDIN
