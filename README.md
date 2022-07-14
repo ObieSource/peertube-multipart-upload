@@ -17,6 +17,8 @@ On MacOS and Linux, peertube-multipart-upload can be uploaded via homebrew from 
 ```bash
 brew tap FiskFan1999/FiskFan1999 https://codeberg.org/FiskFan1999/homebrew-FiskFan1999.git
 brew install peertube-multipart-upload
+# Also available:
+# brew install --head peertube-multipart-upload
 ```
 
 It can also be compiled from source in the following way:
