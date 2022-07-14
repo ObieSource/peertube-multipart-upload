@@ -23,4 +23,6 @@ PTUSER=username
 Peertube
 STDIN
 TLS
+MacOS
+homebrew
 peertube-multipart-upload
