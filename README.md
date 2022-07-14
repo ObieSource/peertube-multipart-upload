@@ -13,6 +13,12 @@ peertube-multipart-upload can be installed via the go compiler
 go install github.com/ObieSource/peertube-multipart-upload@07a6e2db728f90a6911d1e3d3f0b7c92e38b9835
 ```
 
+On MacOS and Linux, peertube-multipart-upload can be uploaded via homebrew from FiskFan1999's tap
+```bash
+brew tap FiskFan1999/FiskFan1999 https://codeberg.org/FiskFan1999/homebrew-FiskFan1999.git
+brew install peertube-multipart-upload
+```
+
 It can also be compiled from source in the following way:
 - Install the go compiler from [here](https://go.dev/dl/) or by another method.
 - Clone the peertube-multipart-upload repository
